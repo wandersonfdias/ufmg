@@ -1,0 +1,128 @@
+***** [03:43:43] Script iniciado. *****
+[03:43:43] Convertendo imagens para pgm..
+[03:43:43] Segmentando imagens..
+[03:43:43] Renomeando imagens..
+[03:43:43] Executando descritores..
+[03:43:43] Limpando mascaras de imagens e temporarios 
+[03:43:43] Criando base de dados: dataset_descritores.txt)
+[03:43:43] Script Finalizado
+***** [03:43:48] Script iniciado. *****
+[03:43:48] Convertendo imagens para pgm..
+[03:43:48] Segmentando imagens..
+[03:43:48] Renomeando imagens..
+[03:43:48] Executando descritores..
+[03:43:48] Limpando mascaras de imagens e temporarios 
+[03:43:48] Criando base de dados: dataset_descritores.txt)
+[03:43:48] Script Finalizado
+***** [03:43:49] Script iniciado. *****
+[03:43:49] Convertendo imagens para pgm..
+[03:43:49] Segmentando imagens..
+[03:43:49] Renomeando imagens..
+[03:43:49] Executando descritores..
+[03:43:49] Limpando mascaras de imagens e temporarios 
+[03:43:49] Criando base de dados: dataset_descritores.txt)
+[03:43:49] Script Finalizado
+***** [03:43:50] Script iniciado. *****
+[03:43:50] Convertendo imagens para pgm..
+[03:43:50] Segmentando imagens..
+[03:43:50] Renomeando imagens..
+[03:43:50] Executando descritores..
+[03:43:50] Limpando mascaras de imagens e temporarios 
+[03:43:50] Criando base de dados: dataset_descritores.txt)
+[03:43:50] Script Finalizado
+***** [03:45:55] Script iniciado. *****
+[03:45:55] Convertendo imagens para pgm..
+[03:45:55] Segmentando imagens..
+[03:45:55] Renomeando imagens..
+[03:45:55] Executando descritores..
+[03:45:55] Limpando mascaras de imagens e temporarios 
+[03:45:55] Criando base de dados: dataset_descritores.txt)
+[03:45:55] Script Finalizado
+***** [04:03:44] Script iniciado. *****
+[04:03:44] Convertendo imagens para pgm..
+[04:03:44] Segmentando imagens..
+[04:03:44] Renomeando imagens..
+[04:03:44] Executando descritores..
+[04:03:44] Limpando mascaras de imagens e temporarios 
+[04:03:44] Criando base de dados: dataset_descritores.txt)
+[04:03:44] Script Finalizado
+***** [04:03:58] Script iniciado. *****
+[04:03:58] Convertendo imagens para pgm..
+[04:03:58] Segmentando imagens..
+[04:03:58] Renomeando imagens..
+[04:03:58] Executando descritores..
+[04:03:58] Limpando mascaras de imagens e temporarios 
+[04:03:58] Criando base de dados: dataset_descritores.txt)
+[04:03:58] Script Finalizado
+***** [04:04:11] Script iniciado. *****
+[04:04:11] Convertendo imagens para pgm..
+[04:04:11] Segmentando imagens..
+[04:04:11] Renomeando imagens..
+[04:04:11] Executando descritores..
+[04:04:11] Limpando mascaras de imagens e temporarios 
+[04:04:11] Criando base de dados: dataset_descritores.txt)
+[04:04:11] Script Finalizado
+***** [04:04:18] Script iniciado. *****
+[04:04:18] Convertendo imagens para pgm..
+[04:04:18] Segmentando imagens..
+[04:04:18] Renomeando imagens..
+[04:04:18] Executando descritores..
+[04:04:18] Limpando mascaras de imagens e temporarios 
+[04:04:18] Criando base de dados: dataset_descritores.txt)
+[04:04:18] Script Finalizado
+***** [04:06:00] Script iniciado. *****
+[04:06:00] Convertendo imagens para pgm..
+[04:06:00] Segmentando imagens..
+[04:06:00] Renomeando imagens..
+[04:06:00] Executando descritores..
+[04:06:00] Limpando mascaras de imagens e temporarios 
+[04:06:00] Criando base de dados: dataset_descritores.txt)
+[04:06:00] Script Finalizado
+***** [04:06:44] Script iniciado. *****
+[04:06:44] Convertendo imagens para pgm..
+[04:06:44] Segmentando imagens..
+[04:06:44] Renomeando imagens..
+[04:06:44] Executando descritores..
+[04:06:44] Limpando mascaras de imagens e temporarios 
+[04:06:44] Criando base de dados: dataset_descritores.txt)
+[04:06:44] Script Finalizado
+***** [04:07:27] Script iniciado. *****
+[04:07:27] Convertendo imagens para pgm..
+[04:07:27] Segmentando imagens..
+[04:07:27] Renomeando imagens..
+[04:07:27] Executando descritores..
+[04:07:27] Limpando mascaras de imagens e temporarios 
+[04:07:27] Criando base de dados: dataset_descritores.txt)
+[04:07:27] Script Finalizado
+***** [04:09:50] Script iniciado. *****
+[04:09:50] Convertendo imagens para pgm..
+[04:09:50] Segmentando imagens..
+[04:09:50] Renomeando imagens..
+[04:09:50] Executando descritores..
+[04:09:50] Limpando mascaras de imagens e temporarios 
+[04:09:50] Criando base de dados: dataset_descritores.txt)
+[04:09:50] Script Finalizado
+***** [02:11:15] Script iniciado. *****
+[02:11:15] Convertendo imagens para pgm..
+[02:11:15] Segmentando imagens..
+[02:11:15] Renomeando imagens..
+[02:11:15] Executando descritores..
+[02:11:15] Limpando mascaras de imagens e temporarios 
+[02:11:15] Criando base de dados: dataset_descritores.txt)
+[02:11:15] Script Finalizado
+***** [02:11:42] Script iniciado. *****
+[02:11:42] Convertendo imagens para pgm..
+[02:11:42] Segmentando imagens..
+[02:11:42] Renomeando imagens..
+[02:11:42] Executando descritores..
+[02:11:42] Limpando mascaras de imagens e temporarios 
+[02:11:42] Criando base de dados: dataset_descritores.txt)
+[02:11:42] Script Finalizado
+***** [02:27:16] Script iniciado. *****
+[02:27:16] Convertendo imagens para pgm..
+[02:27:16] Segmentando imagens..
+[02:27:16] Renomeando imagens..
+[02:27:16] Executando descritores..
+[02:27:16] Limpando mascaras de imagens e temporarios 
+[02:27:16] Criando base de dados: dataset_descritores.txt)
+[02:27:16] Script Finalizado
