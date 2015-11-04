@@ -21,7 +21,7 @@ import weka.core.Instances;
 import br.ufmg.extratorimagem.processador.constants.ProcessadorConstants;
 
 /**
- * Generates a little ARFF file with different attribute types.
+ * Generates a little ARFF file with numeric attribute types.
  * @author Wanderson Ferreira Dias - <code>wandersonf.dias@gmail.com</code>
  */
 public class WekaConversor
