@@ -183,7 +183,6 @@ public class WekaConversor
 		}
 	}
 }
-
 class ConversorInstances extends Instances
 {
 	private static final long serialVersionUID = 396632412736273459L;
