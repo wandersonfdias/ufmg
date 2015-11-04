@@ -140,7 +140,7 @@ public class EvalFileConverter
 		final String SCORE_PREFIX = "Score[1]=";
 		for (String linhaArquivo : linhasArquivo)
 		{
-			if (StringUtils.isNoneBlank(linhaArquivo) && StringUtils.containsIgnoreCase(linhaArquivo, SCORE_PREFIX))
+			if (StringUtils.isNotBlank(linhaArquivo) && StringUtils.containsIgnoreCase(linhaArquivo, SCORE_PREFIX))
 			{
 				String scoreValue = null;
 

@@ -59,7 +59,7 @@ public class Lixo
 			String linha = null;
 			while ((linha = bufferedReader.readLine()) != null)
 			{
-				if (StringUtils.isNoneBlank(linha))
+				if (StringUtils.isNotBlank(linha))
 				{
 					String[] dadosLinha = StringUtils.split(linha, StringUtils.SPACE);
 

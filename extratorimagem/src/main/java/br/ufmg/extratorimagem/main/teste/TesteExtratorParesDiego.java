@@ -29,7 +29,7 @@ public class TesteExtratorParesDiego
 {
 	private static final Log LOG = LogFactory.getLog(TesteExtratorParesDiego.class);
 
-	private static final int TOTAL_PARES_A_GERAR = 100000*1;
+	private static final int TOTAL_PARES_A_GERAR = 100000*6;
 
 	private static Map<String, Boolean> controlePares;
 
