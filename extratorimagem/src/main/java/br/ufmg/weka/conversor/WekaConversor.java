@@ -202,7 +202,7 @@ class ConversorInstances extends Instances
 
 		for (int i = 0; i < numInstances(); i++)
 		{
-			text.append(instance(i).toStringMaxDecimalDigits(15));
+			text.append(instance(i).toStringMaxDecimalDigits(15)); // converte a instância considerando um limite de casas decimais
 			if (i < numInstances() - 1)
 			{
 				text.append('\n');
