@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import weka.core.Attribute;
-import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 import br.ufmg.extratorimagem.exception.ProcessadorException;
@@ -220,7 +219,6 @@ public class LACQueryFileConverter
 	 * @param data
 	 * @throws IOException
 	 */
-	@SuppressWarnings({ "deprecation", "rawtypes", "unchecked" })
 	private void addPairIdToInstances(Instances data) throws IOException
 	{
 		if (data != null && data.numInstances() > 0)
@@ -228,7 +226,7 @@ public class LACQueryFileConverter
 			// lê o arquivo original e adiciona o attributo que identifica o par de imagens às instâncias do dataset
 			List<String> linhasArquivoOriginal = FileUtils.readLines(new File(this.arquivoOriginal));
 
-			Attribute attribute = new Attribute("pair_id", (FastVector) null);
+			Attribute attribute = new Attribute("pair_id", (List<String>) null);
 			data.insertAttributeAt(attribute, 0);
 
 			for (int i = 0; i < data.numInstances(); i++)

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -19,13 +18,12 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import br.ufmg.extratorimagem.exception.ProcessadorException;
-import br.ufmg.extratorimagem.processador.constants.ProcessadorConstants;
 import weka.classifiers.rules.LAC;
 import weka.core.Attribute;
-import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
+import br.ufmg.extratorimagem.exception.ProcessadorException;
+import br.ufmg.extratorimagem.processador.constants.ProcessadorConstants;
 
 /**
  * @author Wanderson Ferreira Dias - <code>wandersonf.dias@gmail.com</code>
@@ -250,7 +248,7 @@ public class LACTest
 			// lê o arquivo original e adiciona o attributo que identifica o par de imagens às instâncias do dataset
 			List<String> linhasArquivoOriginal = FileUtils.readLines(new File(arquivoOriginal));
 
-			Attribute attribute = new Attribute("pair_id", (FastVector) null);
+			Attribute attribute = new Attribute("pair_id", (List<String>) null);
 			data.insertAttributeAt(attribute, 0);
 
 			for (int i = 0; i < data.numInstances(); i++)
