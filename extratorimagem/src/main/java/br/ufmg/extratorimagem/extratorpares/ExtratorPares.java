@@ -118,7 +118,7 @@ public class ExtratorPares
 
 		if (!this.isValidParameters())
 		{
-			throw new ProcessadorException(String.format("Parâmetros de entrada informados inválidos. Diretório base: '%s' -  Diretório imagens: '%s' -  Diretório descritores: '%s'", this.diretorioBase, this.diretorioImagens, this.diretorioDescritores));
+			throw new ProcessadorException(String.format("Parâmetros de entrada informados inválidos. Diretório base: '%s' -  Diretório imagens: '%s' -  Diretório descritores: '%s' - Diretório saída: '%s'.", this.diretorioBase, this.diretorioImagens, this.diretorioDescritores, this.diretorioSaida));
 		}
 		else
 		{
@@ -159,7 +159,7 @@ public class ExtratorPares
 
 		if (!this.isValidParameters())
 		{
-			throw new ProcessadorException(String.format("Parâmetros de entrada informados inválidos. Diretório base: '%s' -  Diretório imagens: '%s' -  Diretório descritores: '%s'", this.diretorioBase, this.diretorioImagens, this.diretorioDescritores));
+			throw new ProcessadorException(String.format("Parâmetros de entrada informados inválidos. Diretório base: '%s' -  Diretório imagens: '%s' -  Diretório descritores: '%s' - Diretório saída: '%s'.", this.diretorioBase, this.diretorioImagens, this.diretorioDescritores, this.diretorioSaida));
 		}
 		else
 		{

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -18,34 +17,12 @@ import org.apache.commons.lang3.StringUtils;
 import br.ufmg.extratorimagem.constants.CommonConstants;
 import br.ufmg.extratorimagem.exception.ImagesNotFoundException;
 
-public class Lixo
+public class NonPairImageDelete
 {
-	private static BigInteger fatorial(int i)
-	{
-		BigInteger valor = new BigInteger(String.valueOf(i));
-		for (int j = (i-1); j>1; j--)
-		{
-			valor = valor.multiply(new BigInteger(String.valueOf(j)));
-		}
-
-		return valor;
-	}
-
 	public static void main(String[] args)
 	{
-//		int total = 8165;
-//		int elementos = 2;
-//		BigInteger denominador = fatorial(elementos);
-//		denominador = denominador.multiply(fatorial(total-elementos));
-//
-//		BigInteger combinacoes = fatorial(total).divide(denominador);
-//
-//		System.out.println(combinacoes);
-//		return;
-
-		// TODO Auto-generated method stub
 		String diretorioBase = System.getenv("HOME") + "/extrai_descritores";
-		String diretorioImagens = diretorioBase + "/imagens";
+		String diretorioImagens = "/imagens";
 		String arquivoTag = diretorioBase + "/diego/tag-classes-reduced.dat";
 
 		FileReader fileReader = null;
@@ -78,19 +55,15 @@ public class Lixo
 				}
 			}
 
-			List<File> images = getImages(diretorioImagens);
-			Set<String> imagensRemover = new HashSet<String>();
+			List<File> images = getImages(getFullPath(diretorioBase, diretorioImagens));
 			for (File image : images)
 			{
 				if (!imagens.contains(image.getName()))
 				{
-					System.out.println(image.getName());
 					// remove a imagem
-//					image.delete();
+					image.delete();
 				}
 			}
-
-			System.out.println("fim");
 		}
 		catch (IOException e)
 		{
@@ -113,5 +86,15 @@ public class Lixo
 	{
 		Collection<File> files = FileUtils.listFiles(new File(diretorioImagens), new String[]{CommonConstants.EXTENSAO_IMAGEM}, true);
 		return ((files != null && !files.isEmpty()) ? new LinkedList<File>(files) : null); // mantém a ordem da lista
+	}
+
+	/**
+	 * Obtém o path base para processamento
+	 * @param dir
+	 * @return
+	 */
+	private static String getFullPath(String diretorioBase, String dir)
+	{
+		return new StringBuilder(diretorioBase).append(File.separator).append(dir).append(File.separator).toString();
 	}
 }

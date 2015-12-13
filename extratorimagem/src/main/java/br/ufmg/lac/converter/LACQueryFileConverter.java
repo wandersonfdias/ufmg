@@ -35,8 +35,6 @@ public class LACQueryFileConverter
 
 	private static final String FIELD_SEPARATOR = " ";
 	private static final int IMAGE_PAIR_ID_ATTRIBUTE = 0;
-	private static final String ARQUIVO_TREINO = "treino";
-	private static final String ARQUIVO_TESTE = "teste";
 
 	private String arquivoWeka;
 
@@ -69,6 +67,17 @@ public class LACQueryFileConverter
 	 */
 	public void convert() throws ProcessadorException
 	{
+		this.convert(true, true); // gera arquivos de treino e teste
+	}
+
+	/**
+	 * Converte o arquivo do WEKA em arquivos de treino/teste do LAC
+	 * @param generateTrainingFile Indica se deve gerar o arquivo de treino
+	 * @param generateTestFile Indica se deve gerar o arquivo de teste
+	 * @throws ProcessadorException
+	 */
+	public void convert(boolean generateTrainingFile, boolean generateTestFile) throws ProcessadorException
+	{
 		BufferedReader reader = null;
 		try
 		{
@@ -83,8 +92,11 @@ public class LACQueryFileConverter
 			// adiciona a coluna "pair_id" às instâncias
 			this.addPairIdToInstances(data);
 
-			// embaralha as instâncias
-			data.randomize(new Random(System.currentTimeMillis()));
+			if (generateTrainingFile && generateTestFile)
+			{
+				// embaralha as instâncias
+				data.randomize(new Random(System.currentTimeMillis()));
+			}
 
 			// obtém os ids das imagens de consulta
 			Set<String> queriesId = this.getQueriesId(data);
@@ -93,25 +105,45 @@ public class LACQueryFileConverter
 			this.createOutputDir();
 
 			// cria os arquivos de treino/teste
-			File trainingFile = this.createOutputFile(ARQUIVO_TREINO);
-			File testFile = this.createOutputFile(ARQUIVO_TESTE);
+			File trainingFile = null;
+			if (generateTrainingFile)
+			{
+				trainingFile = this.createOutputFile(ProcessadorConstants.LAC_TRAINING_FILENAME);
+			}
+			File testFile = null;
+			if (generateTestFile)
+			{
+				testFile = this.createOutputFile(ProcessadorConstants.LAC_TEST_FILENAME);
+			}
 
 			// separa percentuais para treino e teste
-			final int percentualTreino = 80;
+			final int percentualTreino = (generateTrainingFile ? (generateTestFile ? 80 : 100) : 0);
 			final int percentualTeste = 100 - percentualTreino;
 
-			int qtdeTreino = percentualTreino / 10;
-			int qtdeTeste = percentualTeste / 10;
+			int qtdeTreino = (percentualTreino > 0 ? (percentualTreino / 10) : 0);
+			int qtdeTeste = (percentualTeste > 0 ? (percentualTeste / 10) : 0);
 
 			if (qtdeTreino%2 == 0 && qtdeTeste%2 == 0)
 			{
-				qtdeTreino = qtdeTreino/2;
-				qtdeTeste = qtdeTeste/2;
+				if (qtdeTreino > 0)
+				{
+					qtdeTreino = qtdeTreino/2;
+				}
+				if (qtdeTeste > 0)
+				{
+					qtdeTeste = qtdeTeste/2;
+				}
 			}
 			else if (qtdeTreino%3 == 0 && qtdeTeste%3 == 0)
 			{
-				qtdeTreino = qtdeTreino/3;
-				qtdeTeste = qtdeTeste/3;
+				if (qtdeTreino > 0)
+				{
+					qtdeTreino = qtdeTreino/3;
+				}
+				if (qtdeTeste > 0)
+				{
+					qtdeTeste = qtdeTeste/3;
+				}
 			}
 
 			int qtdeTempSeparadaTreino = 0;
@@ -125,14 +157,21 @@ public class LACQueryFileConverter
 			Iterator<String> iterator = queriesId.iterator();
 			while (iterator.hasNext())
 			{
-				boolean adicionarTreino = (qtdeTempSeparadaTreino < qtdeTreino);
-				boolean adicionarTeste = (!adicionarTreino && (qtdeTempSeparadaTeste < qtdeTeste));
+				boolean adicionarTreino = (generateTrainingFile && (qtdeTempSeparadaTreino < qtdeTreino));
+				boolean adicionarTeste = (!adicionarTreino && generateTestFile && (qtdeTempSeparadaTeste < qtdeTeste));
 
 				if (!adicionarTreino && !adicionarTeste)
 				{
 					qtdeTempSeparadaTreino = 0;
 					qtdeTempSeparadaTeste = 0;
-					adicionarTreino = true;
+					if (generateTrainingFile)
+					{
+						adicionarTreino = true;
+					}
+					else if (generateTestFile)
+					{
+						adicionarTeste = true;
+					}
 				}
 
 				String queryId = iterator.next();
@@ -365,7 +404,7 @@ public class LACQueryFileConverter
 		}
 
 		// cria o diretório
-		boolean dirCreated = dir.mkdir();
+		boolean dirCreated = dir.mkdirs();
 		if (!dirCreated)
 		{
 			throw new ProcessadorException(String.format("Não foi possível criar o diretório de saída '%s'.", path));

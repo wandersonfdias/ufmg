@@ -17,6 +17,8 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import weka.classifiers.rules.LAC;
 import weka.core.Attribute;
@@ -24,146 +26,51 @@ import weka.core.Instance;
 import weka.core.Instances;
 import br.ufmg.extratorimagem.exception.ProcessadorException;
 import br.ufmg.extratorimagem.processador.constants.ProcessadorConstants;
+import br.ufmg.lac.converter.LACQueryFileConverter;
 
 /**
  * @author Wanderson Ferreira Dias - <code>wandersonf.dias@gmail.com</code>
  */
 public class LACTest
 {
-	private static final int IMAGE_PAIR_ID_ATTRIBUTE = 0;
+	private static final Log LOG = LogFactory.getLog(LACTest.class);
 
 	public static void main(String[] args)
 	{
-		String diretorioBase = System.getenv("HOME") + "/extrai_descritores";
-		String arquivoOriginal = diretorioBase + "/pares/saida.txt";
-		String arquivoWeka = diretorioBase + "/pares_discretizados.arff";
-		String arquivoTeste = diretorioBase + "/lac_dataset/teste";
-		String arquivoTreino = diretorioBase + "/lac_dataset/treino";
+		String diretorioBase = System.getenv("HOME") + "/extrai_descritores/tp_agrupamentos";
+		String arquivoParesOriginalTreino = diretorioBase + "/dados_base_completa/pares/pares.txt";
+		String arquivoParesDiscretizadosTreino = diretorioBase + "/dados_base_completa/pares/pares_discretizados.arff";
+		String arquivoParesOriginalTeste = diretorioBase + "/dados_base_consulta/pares/pares.txt";
+		String arquivoParesDiscretizadosTeste = diretorioBase + "/dados_base_consulta/pares/pares_discretizados.arff";
 
 		BufferedReader reader = null;
 		try
 		{
-			Instances fullDataSet = getFullDataSet(arquivoWeka, arquivoOriginal);
+			LOG.info("[LEITURA INSTANCIAS TREINO E TESTE] INICIO");
+			Instances intanciasTreino = getFullDataSet(arquivoParesDiscretizadosTreino, arquivoParesOriginalTreino);
+			Instances intanciasTeste = getFullDataSet(arquivoParesDiscretizadosTeste, arquivoParesOriginalTeste);
+			LOG.info("[LEITURA INSTANCIAS TREINO E TESTE] FIM");
 
-			// embaralha as instâncias
-			fullDataSet.randomize(new Random(System.currentTimeMillis()));
+			System.out.println("treino = " + intanciasTreino.size());
+			System.out.println("teste = " + intanciasTeste.size());
 
-			// obtém os ids das imagens de consulta
-			Set<String> queriesId = getQueriesId(fullDataSet);
-
-			// separa percentuais para treino e teste
-			final int percentualTreino = 80;
-			final int percentualTeste = 100 - percentualTreino;
-
-			int qtdeTreino = percentualTreino / 10;
-			int qtdeTeste = percentualTeste / 10;
-
-			if (qtdeTreino%2 == 0 && qtdeTeste%2 == 0)
-			{
-				qtdeTreino = qtdeTreino/2;
-				qtdeTeste = qtdeTeste/2;
-			}
-			else if (qtdeTreino%3 == 0 && qtdeTeste%3 == 0)
-			{
-				qtdeTreino = qtdeTreino/3;
-				qtdeTeste = qtdeTeste/3;
-			}
-
-			int qtdeTempSeparadaTreino = 0;
-			int qtdeTempSeparadaTeste = 0;
-
-			Set<String> queriesIdTreino = new LinkedHashSet<String>();
-			Set<String> queriesIdTeste = new LinkedHashSet<String>();
-
-			// separa queriesId para treino e teste
-			Iterator<String> iterator = queriesId.iterator();
-			while (iterator.hasNext())
-			{
-				boolean adicionarTreino = (qtdeTempSeparadaTreino < qtdeTreino);
-				boolean adicionarTeste = (!adicionarTreino && (qtdeTempSeparadaTeste < qtdeTeste));
-
-				if (!adicionarTreino && !adicionarTeste)
-				{
-					qtdeTempSeparadaTreino = 0;
-					qtdeTempSeparadaTeste = 0;
-					adicionarTreino = true;
-				}
-
-				String queryId = iterator.next();
-
-				if (adicionarTreino)
-				{
-					queriesIdTreino.add(queryId);
-					qtdeTempSeparadaTreino++;
-				}
-				else if (adicionarTeste)
-				{
-					queriesIdTeste.add(queryId);
-					qtdeTempSeparadaTeste++;
-				}
-			}
-
-			// prepara e ordena as instâncias pela coluna "pair_id"
-			LinkedList<Instance> instancias = new LinkedList<Instance>();
-			for (int i = 0; i < fullDataSet.numInstances(); i++)
-			{
-				Instance instance = fullDataSet.instance(i);
-				instancias.add(instance);
-			}
-			Collections.sort(instancias, new Comparator<Instance>()
-			{
-				public int compare(Instance o1, Instance o2)
-				{
-					String pairId1 = o1.toString(IMAGE_PAIR_ID_ATTRIBUTE);
-					String pairId2 = o2.toString(IMAGE_PAIR_ID_ATTRIBUTE);
-					return pairId1.compareToIgnoreCase(pairId2);
-				}
-			});
-
-			ArrayList<Attribute> attributes = new ArrayList<Attribute>();
-			for (int i=0; i< fullDataSet.numAttributes(); i++)
-			{
-				attributes.add(fullDataSet.attribute(i));
-			}
-
-			Instances dadosTreino = new Instances(fullDataSet.relationName(), attributes, 0);
-			Instances dadosTeste = new Instances(fullDataSet.relationName(), attributes, 0);
-
-			// processa dados das instâncias do weka
-			for (Instance instance : instancias)
-			{
-				String queryId = getQueryId(instance);
-
-				if (queriesIdTreino.contains(queryId))
-				{
-					dadosTreino.add(instance);
-				}
-				else if (queriesIdTeste.contains(queryId))
-				{
-					dadosTeste.add(instance);
-				}
-			}
-
-			System.out.println("teste = " + dadosTreino.size());
-			System.out.println("treino = " + dadosTeste.size());
-
-//			// dados de treino
-//			reader = new BufferedReader(new FileReader(arquivoTreino));
-//			Instances dadosTreino = new Instances(reader);
-//			dadosTreino.setClassIndex(dadosTreino.numAttributes()-1);
-//			reader.close();
-//
-//			// dados de teste
-//			reader = new BufferedReader(new FileReader(arquivoTeste));
-//			Instances dadosTeste = new Instances(reader);
-//			dadosTeste.setClassIndex(dadosTeste.numAttributes()-1);
 
 			LAC lac = new LAC();
 			lac.setDebug(true);
 			lac.setMaxRuleSize(2);
 			lac.setMinConfidence(0.01);
 			lac.setMinSupport(1);
-			lac.buildClassifier(dadosTreino);
+
+			LOG.info("[LAC - BUILD CLASSIFIER] INICIO");
+			lac.buildClassifier(intanciasTreino);
+			LOG.info("[LAC - BUILD CLASSIFIER] FIM");
+
+			for (Instance testeInstance : intanciasTeste)
+			{
+				double[] distributionForInstance = lac.distributionForInstance(testeInstance);
+//				System.out.println(distributionForInstance[0]);
+			}
+
 			System.out.println("fim");
 		}
 		catch (FileNotFoundException e)
@@ -208,7 +115,7 @@ public class LACTest
 			data.setClassIndex(data.numAttributes()-1);
 
 			// adiciona a coluna "pair_id" às instâncias
-			addPairIdToInstances(data, arquivoOriginal);
+//			addPairIdToInstances(data, arquivoOriginal);
 
 			return data;
 		}
@@ -262,43 +169,5 @@ public class LACTest
 			}
 			linhasArquivoOriginal = null;
 		}
-	}
-
-	/**
-	 * Obtém um conjunto de imagens de consulta
-	 * @param data
-	 * @return
-	 */
-	private static Set<String> getQueriesId(Instances data)
-	{
-		// 0 qid:100 #docid = 19
-
-		Set<String> queries = new LinkedHashSet<String>();
-
-		for (int i = 0; i < data.numInstances(); i++)
-		{
-			Instance instance = data.instance(i);
-			String queryId = getQueryId(instance);
-			if (!queries.contains(queryId))
-			{
-				queries.add(queryId); // adiciona a 1a imagem do par como id de consulta
-			}
-		}
-
-		return queries;
-	}
-
-	private static String getQueryId(Instance instance)
-	{
-		String queryId = null;
-
-		String pairId = instance.toString(IMAGE_PAIR_ID_ATTRIBUTE); // atributo que identifica o par de imagens
-		if (StringUtils.isNotBlank(pairId))
-		{
-			String[] ids = StringUtils.split(pairId, ProcessadorConstants.PAIR_ID_SEPARATOR);
-			queryId = ids[0];
-		}
-
-		return queryId;
 	}
 }

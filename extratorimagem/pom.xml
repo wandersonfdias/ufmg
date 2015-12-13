@@ -49,6 +49,11 @@
 		<version>3.7.12</version>
 	</dependency>
 	<dependency>
+		<groupId>nz.ac.waikato.cms.weka</groupId>
+		<artifactId>optics_dbScan</artifactId>
+		<version>1.0.4</version>
+	</dependency>
+	<dependency>
 		<groupId>nu.pattern</groupId>
 		<artifactId>opencv</artifactId>
 		<version>2.4.9-7</version>
