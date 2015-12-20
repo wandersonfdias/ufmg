@@ -41,7 +41,7 @@ public class ClusteringTest
 {
 	private static final Log LOG = LogFactory.getLog(ClusteringTest.class);
 
-	private static boolean READ_SERIALIZED_CLUSTERERS = false; // TODO Wanderson
+	private static boolean READ_SERIALIZED_CLUSTERERS = true; // TODO Wanderson
 
 	public static void main(String args[]) throws Exception
 	{
@@ -54,17 +54,17 @@ public class ClusteringTest
 	    String arquivoTesteWeka = diretorioTeste + "/pares_discretizados.arff";
 
 
-//		startKMeansTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
-//	    startKMeansWithCanopyTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
-//		startEMTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
+		startKMeansTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
+	    startKMeansWithCanopyTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
+		startEMTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
 
-//		startCobwebTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
+		startCobwebTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
 //		startDBScanTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
 
-//		startCanopyTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
+		startCanopyTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
 //		startHierarchicalClustererTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
 
-//		startFarthestFirstTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
+		startFarthestFirstTest(diretorioBase, diretorioPares, arquivoWeka, diretorioTeste, arquivoTesteWeka);
 	}
 
 	private static Instances getTestInstances(String arquivoTeste) throws Exception

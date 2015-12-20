@@ -14,5 +14,7 @@ public interface ProcessadorConstants
 
 	String LAC_TRAINING_FILENAME = "treino.txt";
 	String LAC_TEST_FILENAME = "teste.txt";
+	String LAC_OUTPUT_FILENAME = "lac_result.txt";
 
+	String SCORE_OUTPUT_FILENAME = "score.txt";
 }
